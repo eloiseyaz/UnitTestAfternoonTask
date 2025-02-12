@@ -15,7 +15,7 @@ class TaxCalculatorSpec extends AnyWordSpec {
       }
 
       "the income is equal to the personal tax allowance" in {
-        val result: Double = taxCalculator.calculateTax(5000)
+        val result: Double = taxCalculator.calculateTax(10000)
         assert(result == 0)
       }
 
