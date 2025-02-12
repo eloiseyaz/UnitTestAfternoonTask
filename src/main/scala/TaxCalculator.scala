@@ -54,7 +54,33 @@ class TaxCalculator {
   // A method that will return a string with the income limit of their current tax band.
   // The return will also be formatted, E.g: "£12,500" or "No limit"
   def formattedCurrentTaxAllowance(income: Double): String = {
-    ???
+
+    def leadingZeroes(numString: String): String = {
+      if (numString.length == 1) "00" + numString
+      else if (numString.length == 2) "0" + numString
+      else numString
+    }
+
+    def formatLimit(limit: Int): String = {
+      val preComma = (limit / 1000).toString
+      val postComma = (limit % 1000).toString
+
+      s"£$preComma,${leadingZeroes(postComma)}"
+    }
+
+    if (income <= personalAllowance) {
+      formatLimit(personalAllowance)
+    }
+
+    else if (income <= basicRateLimit) {
+      formatLimit(basicRateLimit)
+    }
+
+    else if (income <= higherRateLimit) {
+      formatLimit(higherRateLimit)
+    }
+
+    else "No Limit"
   }
 
 }
