@@ -13,20 +13,28 @@ class TaxCalculator {
 
   // A method to calculate the total amount of tax to be paid, returned as a double
   def calculateTax(income: Double): Double = {
+
     val tax: Double = {
+
       if (income <= personalAllowance) {
         val allowanceTax: Double = income * personalAllowanceRate
         allowanceTax
-      } else if (income <= basicRateLimit) {
+      }
+
+      else if (income <= basicRateLimit) {
         val allowanceTax: Double = personalAllowance * personalAllowanceRate
         val basicTax: Double = (income - personalAllowance) * basicRate
         allowanceTax + basicTax
-      } else if (income <= higherRateLimit) {
+      }
+
+      else if (income <= higherRateLimit) {
         val allowanceTax: Double = personalAllowance * personalAllowanceRate
         val basicTax: Double = (basicRateLimit - personalAllowance) * basicRate
         val higherTax: Double = (income - basicRateLimit) * higherRate
         allowanceTax + basicTax + higherTax
-      } else {
+      }
+
+      else {
         val allowanceTax: Double = personalAllowance * personalAllowanceRate
         val basicTax: Double = (basicRateLimit - personalAllowance) * basicRate
         val higherTax: Double = (higherRateLimit - basicRateLimit) * higherRate
@@ -34,12 +42,13 @@ class TaxCalculator {
         allowanceTax + basicTax + higherTax + additionalTax
       }
     }
+
     tax
   }
 
   // A method which can tell you if someone is a higher rate taxpayer
   def isHigherRateTaxpayer(income: Double): Boolean = {
-    ???
+    income > basicRateLimit && income <= higherRateLimit
   }
 
   // A method that will return a string with the income limit of their current tax band.
