@@ -16,9 +16,12 @@ sbt test
 ```
 ----
 **Extension task (1 - Hard):**
-1. Extend the task to calculate capital gains from shares
-2. Information on implementation can be found: https://taxscouts.com/the-tax-basics/capital-gains-tax-rates/
+1. Once all your code is pulled down, branch off main for the hard extension.
+2. Refactor the code with the corrected income tax bands, via: https://www.gov.uk/income-tax-rates
+3. When you are happy with your code, tests are passing, create a PR and merge into main. In IntelliJ, checkout main, pull ‘origin main’.
 ---
 **Extension task (2 - Really Hard):**
-1. Extend the task to calculate total income tax AND capital gains tax from shares
-2. You can create a new method that calls your existing methods to accomplish this
+1. Once all your code is pulled down, branch off main for the really hard extension.
+2. Extend the task to calculate total income tax AND capital gains tax from shares. Create a new method that calls your existing methods to accomplish this.
+3. Information on implementation can be found: https://taxscouts.com/the-tax-basics/capital-gains-taxrates/
+4. When you are happy with your code, tests are passing, create a PR and merge into main. In IntelliJ, checkout main, pull ‘origin main’.
