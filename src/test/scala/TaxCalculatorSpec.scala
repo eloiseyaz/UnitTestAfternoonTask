@@ -75,4 +75,65 @@ class TaxCalculatorSpec extends AnyWordSpec {
 
   }
 
+  "TaxCalculator.formattedCurrentTaxAllowance" should {
+
+    "return a formatted string of the personal tax allowance" when {
+
+      "the income is below the personal tax allowance" in {
+        val result: String = taxCalculator.formattedCurrentTaxAllowance(5000)
+        val expected: String = "£10,000"
+        assert(result == expected)
+      }
+
+      "the income is equal to the personal tax allowance" in {
+        val result: String = taxCalculator.formattedCurrentTaxAllowance(10000)
+        val expected: String = "£10,000"
+        assert(result == expected)
+      }
+
+    }
+
+    "return a formatted string of the basic rate limit" when {
+
+      "the income is above the personal allowance rate and below the basic rate limit" in {
+        val result: String = taxCalculator.formattedCurrentTaxAllowance(20000)
+        val expected: String = "£50,000"
+        assert(result == expected)
+      }
+
+      "the income is equal to the basic rate limit" in {
+        val result: String = taxCalculator.formattedCurrentTaxAllowance(50000)
+        val expected: String = "£50,000"
+        assert(result == expected)
+      }
+
+    }
+
+    "return a formatted string of the higher rate limit" when {
+
+      "the income is above the basic rate limit and below the higher rate limit" in {
+        val result: String = taxCalculator.formattedCurrentTaxAllowance(100000)
+        val expected: String = "£125,000"
+        assert(result == expected)
+      }
+
+      "the income is equal to the higher rate limit" in {
+        val result: String = taxCalculator.formattedCurrentTaxAllowance(125000)
+        val expected: String = "£125,000"
+        assert(result == expected)
+      }
+
+    }
+
+    "return a string of \"No Limit\"" when {
+
+      "the income is above the higher rate limit" in {
+        val result: String = taxCalculator.formattedCurrentTaxAllowance(200000)
+        val expected: String = "No Limit"
+        assert(result == expected)
+      }
+
+
+    }
+  }
 }
