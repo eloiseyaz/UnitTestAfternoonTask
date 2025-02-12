@@ -14,9 +14,20 @@ class TaxCalculatorSpec extends AnyWordSpec {
         assert(result == 0)
       }
 
+      "the income is equal to the personal tax allowance" in {
+        val result: Double = taxCalculator.calculateTax(5000)
+        assert(result == 0)
+      }
+
       "the income is above the personal tax allowance but below the basic rate limit" in {
         val result: Double = taxCalculator.calculateTax(40000)
         val basicTax: Int = 6000
+        assert(result == basicTax)
+      }
+
+      "the income is equal to the basic rate limit" in {
+        val result: Double = taxCalculator.calculateTax(50000)
+        val basicTax: Int = 8000
         assert(result == basicTax)
       }
 
@@ -24,6 +35,13 @@ class TaxCalculatorSpec extends AnyWordSpec {
         val result: Double = taxCalculator.calculateTax(100000)
         val basicTax: Int = 8000
         val higherTax: Int = 20000
+        assert(result == basicTax + higherTax)
+      }
+
+      "the income is equal to the higher rate limit" in {
+        val result: Double = taxCalculator.calculateTax(125000)
+        val basicTax: Int = 8000
+        val higherTax: Int = 30000
         assert(result == basicTax + higherTax)
       }
 
