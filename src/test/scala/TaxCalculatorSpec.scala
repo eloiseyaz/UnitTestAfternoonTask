@@ -15,42 +15,35 @@ class TaxCalculatorSpec extends AnyWordSpec {
       }
 
       "the income is equal to the personal tax allowance" in {
-        val result: Double = taxCalculator.calculateTax(10000)
+        val result: Double = taxCalculator.calculateTax(12570)
         assert(result == 0)
       }
 
       "the income is above the personal tax allowance but below the basic rate limit" in {
         val result: Double = taxCalculator.calculateTax(40000)
-        val basicTax: Int = 6000
-        assert(result == basicTax)
+        assert(result ==  32319.60)
       }
 
       "the income is equal to the basic rate limit" in {
-        val result: Double = taxCalculator.calculateTax(50000)
-        val basicTax: Int = 8000
-        assert(result == basicTax)
+        val result: Double = taxCalculator.calculateTax(50270)
+        assert(result == 39714)
       }
 
       "the income is above the basic rate limit but below the higher rate limit" in {
-        val result: Double = taxCalculator.calculateTax(100000)
-        val basicTax: Int = 8000
-        val higherTax: Int = 20000
-        assert(result == basicTax + higherTax)
+        val result1: Double = taxCalculator.calculateTax(100000)
+        assert(result1 == 68557.40)
+        val result2: Double = taxCalculator.calculateTax(110000)
+        assert(result2 == 72357.40)
       }
 
       "the income is equal to the higher rate limit" in {
-        val result: Double = taxCalculator.calculateTax(125000)
-        val basicTax: Int = 8000
-        val higherTax: Int = 30000
-        assert(result == basicTax + higherTax)
+        val result: Double = taxCalculator.calculateTax(125140)
+        assert(result == 78110.60)
       }
 
       "the income is above the higher rate limit" in {
         val result: Double = taxCalculator.calculateTax(200000)
-        val basicTax: Int = 8000
-        val higherTax: Int = 30000
-        val additionalTax: Int = 33750
-        assert(result == basicTax + higherTax + additionalTax)
+        assert(result == 117786.40)
       }
 
     }
@@ -66,7 +59,7 @@ class TaxCalculatorSpec extends AnyWordSpec {
       }
 
       "the income is equal to the higher rate limit" in {
-        val result: Boolean = taxCalculator.isHigherRateTaxpayer(125000)
+        val result: Boolean = taxCalculator.isHigherRateTaxpayer(125140)
         assert(result)
       }
 
@@ -80,7 +73,7 @@ class TaxCalculatorSpec extends AnyWordSpec {
       }
 
       "the income is equal to the basic rate limit" in {
-        val result: Boolean = taxCalculator.isHigherRateTaxpayer(50000)
+        val result: Boolean = taxCalculator.isHigherRateTaxpayer(50271)
         assert(!result)
       }
 
@@ -99,13 +92,13 @@ class TaxCalculatorSpec extends AnyWordSpec {
 
       "the income is below the personal tax allowance" in {
         val result: String = taxCalculator.formattedCurrentTaxAllowance(5000)
-        val expected: String = "£10,000"
+        val expected: String = "£12,570"
         assert(result == expected)
       }
 
       "the income is equal to the personal tax allowance" in {
-        val result: String = taxCalculator.formattedCurrentTaxAllowance(10000)
-        val expected: String = "£10,000"
+        val result: String = taxCalculator.formattedCurrentTaxAllowance(12570)
+        val expected: String = "£12,570"
         assert(result == expected)
       }
 
@@ -115,13 +108,13 @@ class TaxCalculatorSpec extends AnyWordSpec {
 
       "the income is above the personal allowance rate and below the basic rate limit" in {
         val result: String = taxCalculator.formattedCurrentTaxAllowance(20000)
-        val expected: String = "£50,000"
+        val expected: String = "£50,270"
         assert(result == expected)
       }
 
       "the income is equal to the basic rate limit" in {
-        val result: String = taxCalculator.formattedCurrentTaxAllowance(50000)
-        val expected: String = "£50,000"
+        val result: String = taxCalculator.formattedCurrentTaxAllowance(50270)
+        val expected: String = "£50,270"
         assert(result == expected)
       }
 
@@ -131,13 +124,13 @@ class TaxCalculatorSpec extends AnyWordSpec {
 
       "the income is above the basic rate limit and below the higher rate limit" in {
         val result: String = taxCalculator.formattedCurrentTaxAllowance(100000)
-        val expected: String = "£125,000"
+        val expected: String = "£125,140"
         assert(result == expected)
       }
 
       "the income is equal to the higher rate limit" in {
-        val result: String = taxCalculator.formattedCurrentTaxAllowance(125000)
-        val expected: String = "£125,000"
+        val result: String = taxCalculator.formattedCurrentTaxAllowance(125140)
+        val expected: String = "£125,140"
         assert(result == expected)
       }
 
