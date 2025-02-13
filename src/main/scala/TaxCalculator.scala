@@ -1,9 +1,9 @@
 class TaxCalculator {
 
   // Tax bands (simplified to make testing a bit easier)
-  private val personalAllowance: Int = 10000
-  private val basicRateLimit: Int = 50000
-  private val higherRateLimit: Int = 125000
+  private val personalAllowance: Int = 12570
+  private val basicRateLimit: Int = 50270
+  private val higherRateLimit: Int = 125140
 
   // Tax rates
   private val personalAllowanceRate: Double = 0
@@ -28,18 +28,19 @@ class TaxCalculator {
       }
 
       else if (income <= higherRateLimit) {
-        val allowanceTax: Double = personalAllowance * personalAllowanceRate
+        val personalAllowanceLoss: Double = ((income - 100000) / 2)
+        val allowanceTax: Double = (personalAllowance - personalAllowanceLoss) * personalAllowanceRate
         val basicTax: Double = (basicRateLimit - personalAllowance) * basicRate
-        val higherTax: Double = (income - basicRateLimit) * higherRate
+        val higherTax: Double = (income - basicRateLimit + personalAllowanceLoss) * higherRate
         allowanceTax + basicTax + higherTax
       }
 
       else {
-        val allowanceTax: Double = personalAllowance * personalAllowanceRate
         val basicTax: Double = (basicRateLimit - personalAllowance) * basicRate
-        val higherTax: Double = (higherRateLimit - basicRateLimit) * higherRate
+        val higherTax: Double = (higherRateLimit - basicRateLimit + personalAllowance) * higherRate
         val additionalTax: Double = (income - higherRateLimit) * additionalRate
-        allowanceTax + basicTax + higherTax + additionalTax
+        println(basicTax, higherTax, additionalTax)
+        basicTax + higherTax + additionalTax
       }
     }
 
